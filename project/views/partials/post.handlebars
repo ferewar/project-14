@@ -1,0 +1,23 @@
+    <article class="post">
+      <header>
+        <h1>{{post.title}}</h1>
+        <p>Posted by {{post.author}} on {{formatDate post.createdAt}}</p>
+      </header>
+      <section>
+        <p>{{post.content}}</p>
+      </section>
+      {{#if loggedIn}}
+        {{!-- Only show the edit and delete buttons if the logged-in user is the author of the post --}}
+        {{#if isAuthor}}
+          <button onclick="location.href='/dashboard/edit/{{post.id}}'">Edit</button>
+          <button onclick="location.href='/dashboard/delete/{{post.id}}'">Delete</button>
+        {{/if}}
+        <section class="comments-section">
+        </section>
+        <form class="new-comment-form" action="/api/comments" method="post">
+          <textarea name="commentText" placeholder="New comment"></textarea>
+          <input type="hidden" name="postId" value="{{post.id}}">
+          <button type="submit">Add Comment</button>
+        </form>
+      {{/if}}
+    </article>

@@ -1,0 +1,45 @@
+<h2>Your Dashboard</h2>
+
+<button id="new-post-btn">+ New Post</button>
+<div id="new-post-form" style="display: none;">
+  <form class="new-post-form" action="/api/posts" method="post">
+    <label for="post-title">Title</label>
+    <input type="text" id="post-title" name="post-title" required>
+    
+    <label for="post-content">Content</label>
+    <textarea id="post-content" name="post-content" required></textarea>
+    
+    <button type="submit">Create</button>
+    <button type="button" onclick="toggleForm()">Cancel</button>
+  </form>
+</div>
+
+<!-- Existing Posts -->
+<section id="posts-container">
+  {{#each posts}}
+    <div class="post-entry">
+      <h3>{{this.title}}</h3>
+      <p>{{this.content}}</p>
+      <button class="edit-post-btn" data-id="{{this.id}}">Edit</button>
+      <button class="delete-post-btn" data-id="{{this.id}}">Delete</button>
+    </div>
+  {{/each}}
+</section>
+
+<script>
+// Handle the New Post button click
+document.getElementById('new-post-btn').addEventListener('click', toggleForm);
+
+function toggleForm() {
+  console.log('Toggle form called');
+  var form = document.getElementById('new-post-form');
+  if (form.style.display === 'none' || form.style.display === '') {
+    form.style.display = 'block';
+  } else {
+    form.style.display = 'none';
+  }
+}
+
+
+</script>
+<script src="/js/dashboard.js"></script>
